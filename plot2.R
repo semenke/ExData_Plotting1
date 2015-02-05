@@ -1,0 +1,13 @@
+setwd("C:/Users/C16Sara.Menke/Documents/Math378/ExploratoryData/Project1/ExData_Plotting1/exdata-data-household_power_consumption")
+data=read.table("./household_power_consumption.txt",header=T,sep=";")
+data$Date=as.character(data$Date)
+u=(data$Date=="1/2/2007")|(data$Date=="2/2/2007")
+subset=data[u,]
+remove(data,u)
+total.time = paste(subset$Date,subset$Time)
+subset$Time=strptime(total.time,format="%d/%m/%Y %H:%M:%S")
+subset$Global_active_power=as.character(subset$Global_active_power)
+subset$Global_active_power=as.numeric(subset$Global_active_power)
+png(filename = "plot2.png", width = 480, height = 480)
+with(subset,plot(Time,Global_active_power,type="l",xlab="",ylab="Global Active Power (kilowatts)",main="Global Active Power"))
+dev.off()
